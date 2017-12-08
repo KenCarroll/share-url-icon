@@ -1,0 +1,21 @@
+{
+  "name": "share-url-icon",
+  "version": "0.0.0",
+  "homepage": "https://github.com/KenCarroll/share-icon-url",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "iron-icon": "PolymerElements/iron-icon#^2.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^2.0.1",
+    "paper-button": "PolymerElements/paper-button#^2.0.0",
+    "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.1",
+    "paper-toast": "PolymerElements/paper-toast#^2.0.0"
+  }
+}

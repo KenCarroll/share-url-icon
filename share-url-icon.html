@@ -1,0 +1,86 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/social-icons.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+
+<dom-module id="share-url-icon">
+
+  <template>
+
+    <style>
+      /* Styling needs to be improved e.g. to inherit shared-styles */
+      :host {
+        display: inline-block;
+        --paper-icon-button: {
+          color: black;
+          background-color: white;
+        };
+        --paper-icon-button-hover: {
+          background-color: green;
+          color: white;
+        };
+      }
+    </style>
+
+      <paper-icon-button title=[[iconTitle]] icon="social:share" alt=[[iconAltText]] on-tap="share">
+      </paper-icon-button>
+
+    </template>
+
+  <script>
+    class ShareUrlIcon extends Polymer.Element {
+      static get is() {
+        return 'share-url-icon';
+      }
+      static get properties() {
+        return {
+
+          shareTitle: {
+            type: String,
+            value: "Undefined",
+          },
+          shareText: {
+            type: String,
+            value: "Undefined",
+          },
+          shareURL: {
+            type: String,
+            value: document.location.href,
+          },
+          iconTitle: {
+            type: String,
+            value: "Share2care"
+          },
+          iconAltText: {
+            type: String,
+            value: "Share",
+          }
+        };
+      }
+      constructor() {
+        super();
+      }
+      share() {
+        if (navigator.share) {
+          navigator.share({
+            title: this.shareTitle,
+            text:  this.shareText,
+            url: this.shareURL,
+          })
+            .then(() => {
+              this.dispatchEvent(new CustomEvent('share-result', {detail: {shared: true, error: "none", title: this.shareTitle}}));
+            })
+            .catch((error) => {
+              this.dispatchEvent(new CustomEvent('share-result', {detail: {shared: false, error: error, title: this.shareTitle}}));
+            });
+        }else{
+          //document.location.href=`mailto:?subject=${this.title}&body=${this.shareURL}`;
+          this.dispatchEvent(new CustomEvent('share-result', {detail: {shared: true, error: "none", title: this.shareTitle, url : this.shareURL}}));
+        }
+      }
+    }
+    customElements.define(ShareUrlIcon.is, ShareUrlIcon);
+  </script>
+
+</dom-module>
+

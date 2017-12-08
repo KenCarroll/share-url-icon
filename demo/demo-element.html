@@ -1,0 +1,44 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-icons/iron-icons.html">
+<link rel="import" href="../../paper-toast/paper-toast.html">
+<link rel="import" href="../share-url-icon.html">
+
+
+<dom-module id="demo-element">
+  <template>
+    <style>
+      :host {
+        font-family: sans-serif;
+      }
+    </style>
+  
+    <h3>Share-URL-Icon Demo</h3>
+    
+    <share-url-icon class="shareIcon" icon-title="Share me if you care" share-title="share me if YOU care!" share-text="share me if you care" on-share-result="displayWindowAlert"></share-url-icon>
+    <hr>
+    <share-url-icon class="shareIcon" icon-title="Cool2Share" share-title="cool to share!" share-text="it's cool to share" on-share-result="displayPaperToast"></share-url-icon>
+    <paper-toast id="toast"></paper-toast>
+  </template>
+
+  <script>
+    class DemoElement extends Polymer.Element {
+      static get is() { return 'demo-element' }
+      ready() {
+        super.ready();
+      }
+      displayWindowAlert(e) {
+        window.alert(`
+         share icon = ${e.detail.title}
+         shared=${e.detail.shared}
+         errorMsg = ${e.detail.error}
+         url = ${e.detail.url}`);
+      }
+      displayPaperToast(e) {
+        this.$.toast.text = `share title = ${e.detail.title}, shared=${e.detail.shared}, errorMsg = ${e.detail.error}, url = ${e.detail.url}`;
+        this.$.toast.verticalAlign = "top";
+        this.$.toast.open();
+      }
+    }
+    customElements.define(DemoElement.is, DemoElement);
+    </script>
+</dom-module>
