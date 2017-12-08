@@ -74,7 +74,7 @@
               this.dispatchEvent(new CustomEvent('share-result', {detail: {shared: false, error: error, title: this.shareTitle}}));
             });
         }else{
-          //document.location.href=`mailto:?subject=${this.title}&body=${this.shareURL}`;
+          document.location.href=`mailto:?subject=${this.title}&body=${this.shareURL}`;
           this.dispatchEvent(new CustomEvent('share-result', {detail: {shared: true, error: "none", title: this.shareTitle, url : this.shareURL}}));
         }
       }
